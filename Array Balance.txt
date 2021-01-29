@@ -1,0 +1,30 @@
+
+n = int(input())
+
+l1 = [int(i) for i in input().split()]
+print(l1)
+
+mid = n//2
+
+sum1 = 0
+sum2 = 0
+
+if n%2==0:
+    for i in range(mid):
+        sum1 = l1[i] + sum1
+    for j in range(mid,n):
+        sum2= l1[j] + sum2
+
+elif n%2!=0:
+    for i in range(mid+1):
+        sum1 = l1[i] + sum1
+    for j in range(mid+1,n):
+        sum2= l1[j] + sum2
+
+print(sum1)
+print(sum2)
+
+if sum1==sum2:
+    print('1')
+else:
+    print('0')

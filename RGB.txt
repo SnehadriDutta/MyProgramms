@@ -1,0 +1,22 @@
+
+s = input()
+
+l = list(s)
+
+r = []
+g = []
+b = []
+for i in range(len(l)):
+    if l[i] == 'R':
+        r.append('R')
+    elif l[i] == 'G':
+        g.append('G')
+    elif l[i] == 'B':
+        b.append('B')
+
+all = r + g + b
+s = ''
+f = s.join(all)
+
+print(f)
+

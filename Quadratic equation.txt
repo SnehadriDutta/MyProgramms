@@ -1,0 +1,52 @@
+import math
+
+class Discriminant:
+
+    def __init__(self, a, b, c):
+
+        self.a = a
+        self.b = b
+        self.c = c
+        self.d = 0
+
+    def disc(self):
+
+        self.d = (self.b*self.b)-(4*self.a*self.c)
+
+        if self.d==0:
+            print('\nOnly one soln')
+        elif self.d>0:
+            print('\ntwo soln')
+        else:
+            print('\nimaginary soln')
+
+
+class Solver(Discriminant):
+
+
+    def soln(self):
+
+        if self.d==0:
+
+            x = -self.b/(2*self.a)
+            print('\nx = ',x)
+
+        elif self.d>0:
+
+            x1= (-self.b+math.sqrt(self.d))/(2*self.a)
+            print('\nx1 = ', x1)
+
+            x2 = (-self.b-math.sqrt(self.d))/(2*self.a)
+            print('\nx2 = ', x2)
+
+        else:
+            print('\nno solution')
+
+
+a = int(input('co-effecient of x^2= '))
+b = int(input('co-effecient of x= '))
+c = int(input('constant= '))
+
+eq1= Solver(a,b,c)
+eq1.disc()
+eq1.soln()

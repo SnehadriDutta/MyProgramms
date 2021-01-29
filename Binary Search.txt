@@ -1,0 +1,30 @@
+pos =0
+def search(j,n):
+
+    u = len(j)-1
+    l = 0
+
+    while l<=u:
+        mid = (u+l)//2
+
+        if j[mid] == n:
+           globals()['pos']= mid
+           return True
+
+        elif j[mid]<n:
+             l = mid
+
+        elif j[mid]>n:
+            u = mid
+
+    return False
+
+l1 = [11, 20, 45, 52, 32, 46, 95, 24, ]
+j = sorted(l1)
+print(j)
+n = 50
+
+if search(j,n)==True:
+    print(pos)
+else:
+    print('-1')

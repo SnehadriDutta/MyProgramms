@@ -1,0 +1,59 @@
+import pandas as pd
+import numpy as np
+
+
+print('\n')
+exam_data = { 'name':['Arjun','Anali','Souria','Rockea','Imani','Mouliya','Julie','Rana','Kavin','Bosia'],
+              'score': [15.5, 9, 16.5, np.nan, 9, 30, 17.5, np.nan, 8, 20],
+              'attempts': [1, 3, 2, 3, 2, 3, 1, 1, 2, 1],
+              'qualify': ['yes','no','yes','no','no','yes','yes','no','no','yes']
+            }
+labels = ['A','B','C','D','E','F','G','H','I','J']
+
+data = pd.DataFrame(exam_data, index = labels)
+
+print(data)
+
+print('\n')                                                               #value sorting
+data1 = data.sort_values(['name'])
+print(data1)
+
+print('\n')                                                               #column drop
+data2 = data.drop(['attempts'], axis=1)
+print(data2)
+
+print('\n')                                                                 #column reindexing
+data3 = data.reindex(['name','attempts','score','qualify'], axis = 1)
+print(data3)
+
+print('\n')                                                                    #row indexing
+data4 = data.reindex(['A','C','B','E','D','G','F','I','H','J'], axis = 0)
+print(data4)
+
+print('\n')                                                                     #index sorting
+data5 = data.sort_index(ascending=False)
+print(data5)
+
+print('\n')                                                                     #lambda function application 
+f = lambda x: x.max()
+data6 = data.loc[:,['score','attempts']].apply(f)
+print(data6)
+
+def z(x):                                                                        #user defined function application
+    return pd.Series([x.max(),x.min(),x.mean()], index = ['max','min','mean'])
+data7 = data.loc[:,['score','attempts']].apply(z)
+print(data7)
+
+print('\n')                                                                         #ranking
+data8 = data.loc[:, ['score','attempts']].rank(method = 'first', numeric_only = True)
+print(data8)
+
+print('\n')                                                                         #max value
+data9 = data.loc[:,['score','attempts']].idxmax()
+print(data9)
+
+print('\n')                                                                          #value count
+data10 = data.loc[:,['score','attempts']].apply(pd.value_counts)
+print(data10)
+
+

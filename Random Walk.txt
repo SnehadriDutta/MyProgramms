@@ -1,0 +1,39 @@
+from random import choice
+from matplotlib import pyplot as plt
+
+class Random_Walk():
+
+    def __init__(self, max_step=5000):                      # max number of steps should be 5000
+
+        self.max_step = max_step
+        self.x_values = [0]                                 #t he walk starts from 0,0
+        self.y_values = [0]
+
+    def walk(self):
+
+        while len(self.x_values) < self.max_step:
+
+            x_direction = choice([-1, 1])                   # this is for lft and right direction
+            x_distance = choice([0,1,2,3,4,5])              # this is for the distance
+            x_steps = x_direction * x_distance
+
+            y_direction = choice([-1, 1])                   # this is for lft and right direction
+            y_distance = choice([0, 1, 2, 3, 4, 5])          # this is for the distance
+            y_steps = y_direction * y_distance
+
+            if x_steps == 0 and y_steps == 0:                   # to exclude 0 steps
+                continue
+
+            next_xstep = self.x_values[-1] + x_steps
+            next_ystep = self.y_values[-1] + y_steps
+
+            self.x_values.append(next_xstep)
+            self.y_values.append(next_ystep)
+
+
+
+rw=Random_Walk()
+rw.walk()
+
+plt.scatter(rw.x_values, rw.y_values, s =15)
+plt.show()

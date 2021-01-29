@@ -1,0 +1,28 @@
+def transpose(r, c):
+    z = []
+
+    for i in range(c):
+        row = []
+        for j in range(r):
+            row.append(0)
+        z.append(row)
+
+    mat = []
+
+    for i in range(r):
+        row = [int(i) for i in input().split()]
+        mat.append(row)
+
+    for i in range(c):
+        for j in range(r):
+            z[i][j] = mat[j][i]
+
+    for i in range(len(z)):
+        str1 = [str(i) for i in z[i]]
+        x = " ".join(str1)
+        print(x)
+
+r = int(input())
+c = int(input())
+
+transpose(r, c)
