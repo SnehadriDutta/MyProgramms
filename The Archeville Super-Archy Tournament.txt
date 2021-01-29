@@ -1,0 +1,111 @@
+
+def score_cal(n, teams):  # score calculator
+
+    players = []
+    for i in range(n):
+        for j in range(2):
+            players.append(teams[i][j + 1])
+    print("\nPlayers:")
+    print(','.join(players))
+
+    print("\nEnter the target hits for round 1")                                        #1st target input
+    targets = [str(i) for i in input().split(',')]
+
+    score = []
+    for i in range(n * 2):
+        score.append(0)
+
+    final = []
+    for i in range(n):
+        final.append(0)
+
+    bonus = []
+    for i in range(n):
+        bonus.append(0)
+
+    maximum = max(final)
+
+    i = 0
+    while maximum<60:
+
+        if i > 0:
+            print("\nEnter the target hits for round " + str(i + 1))      #target inputs
+            t = [str(i) for i in input().split(',')]
+            for j in range(len(targets)):
+                targets[j] = t[j]
+
+        r1 = []
+        for j in targets:                                                              #target hits score calculator
+
+            if j == "A":
+                r1.append(5 + i)
+            elif j == "B":
+                r1.append(4 + i)
+            elif j == "C":
+                r1.append(3 + i)
+            elif j == "D":
+                r1.append(2 + i)
+            elif j == "E":
+                r1.append(1 + i)
+            elif j == "F":
+                r1.append(0)
+
+        for j in range(len(score)):
+            score[j] = score[j] + r1[j]
+
+        b = []                                                                          #bonus score calculator
+        for j in range(0, len(targets), 2):
+            if targets[j] == targets[j + 1]:
+                b.append(2)
+            else:
+                b.append(0)
+
+        for j in range(len(bonus)):
+            bonus[j] = bonus[j] + b[j]
+
+        fin = []                                                                           #final score calculator
+        for k in range(0, len(score), 2):
+            t = score[k] + score[k + 1]
+            fin.append(t)
+
+        for j in range(len(final)):
+            final[j] = fin[j] + bonus[j]
+
+        print("\nRound ", i + 1)
+        print('==================')
+
+        print('\nIndividual Scores:')                                                       # individual scores printer
+        print('---------------------')
+        for j in range(len(score)):
+            print(players[j] + ": " + str(score[j]))
+
+        print('\nBonus Scores:')                                                            # bonus scores printer
+        print('---------------------')
+        for l in range(n):
+            print(teams[l][0] + ': ' + str(bonus[l]))
+
+        print('\nTeam Scores:')                                                             # team scores printer
+        print('---------------------')
+        for l in range(n):
+            print(teams[l][0] + ': ' + str(final[l]))
+
+        maximum = max(final)                                                                #decalring winner
+        if maximum >= 60:
+            for i in range(n):
+                if final[i] == maximum:
+                    print("\n\n\nGame Over, " + teams[i][0] + " Wins!!!")
+        i += 1
+
+
+# -----------------------------------------------------------------------------------------------
+
+n = int(input("Enter number of teams= "))                                                      #basic input
+print("use comma to separate the inputs")
+print('\n')
+teams = []
+print("Enter the name of nation and their participants")
+for i in range(n):
+    members = [str(i) for i in input().split(',')]
+    teams.append(members)
+
+score_cal(n, teams)
