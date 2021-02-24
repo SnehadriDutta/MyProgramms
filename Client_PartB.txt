@@ -1,0 +1,56 @@
+import socket
+keys = "1g2S7AdDMG6U5fhsXaQRqmCeYO_3yVPwJ90W^*%=#+ "
+values = "abcdefghijklmnopqrstuvwxyz0123456789@?.'!, "
+
+def decryp(message_decryp):
+
+    decryp = dict(zip(keys, values))
+    den = []
+    for i in message_decryp:
+        den.append(decryp[i])
+    decryp_mssg = "".join(den)
+    decryp_mssg.title()
+    return decryp_mssg
+
+
+def encryp(message_encryp):
+    encryp = dict(zip(values, keys))
+    en = []
+    for i in message_encryp:
+        en.append(encryp[i.lower()])
+    encryp_mssg = "".join(en)
+    return encryp_mssg
+
+IP = socket.gethostbyname(socket.gethostname())
+PORT = 9999
+ADDR = (IP,PORT)
+
+client = socket.socket()
+
+client.connect(ADDR)
+print("Type 'Disconnect' to discontinue")
+print('\n')
+
+message_encryp = input("Enter Your Message: ")
+encryp_mssg = encryp(message_encryp)
+client.send(bytes(encryp_mssg, 'utf-8'))
+
+
+while True:
+
+    message_decryp = client.recv(1024).decode()
+    if (message_decryp!= ''):
+        decryp_mssg = decryp(message_decryp)
+        print("\nReceived Message: ",message_decryp)
+        print("Decrypted Message....")
+        print(decryp_mssg.title())
+        print("\n")
+
+
+        message_encryp = input("Enter Your Message: ")
+        encryp_mssg = encryp(message_encryp)
+        client.send(bytes(encryp_mssg, 'utf-8'))
+
+    else:
+        print("Disconnected")
+        break

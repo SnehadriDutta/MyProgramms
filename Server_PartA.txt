@@ -1,0 +1,39 @@
+import socket
+
+
+
+s = socket.socket()
+print('Socket Created')
+
+s.bind(('localhost',9999))
+
+s.listen(3)
+print('Waiting for connection.....')
+
+dic = {"SetA":[{"One":1,"Two":2}],"SetB":[{"Three":3,"Four":4}],
+       "SetC":[{"Five":5,"Six":6}],"SetD":[{"Seven":7,"Eight":8}],
+       "SetE":[{"Nine":9,"Ten":10}]}
+
+
+while True:
+
+    c, addr = s.accept()
+    input_client = c.recv(1024).decode()
+    l = list(input_client.split("-"))
+
+    print("\nSent")
+    for key in dic.keys():
+        if l[0] == key:
+            for j in dic[l[0]][0].keys():
+                if l[1] == j:
+                    n = str(dic[l[0]][0][l[1]])
+                    c.send(bytes(n,"utf-8"))
+
+                    continue
+            else:
+                  c.send(bytes("E", "utf-8"))
+
+    else:
+          c.send(bytes("E", "utf-8"))
+
+    c.close()
